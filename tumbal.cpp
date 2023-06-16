@@ -374,7 +374,7 @@ int main()
     TambahKamar(DaftarKamar, 3, "Deluxe Room", 200);
     TambahKamar(DaftarKamar, 4, "Suite Room", 250);
 
-    // Login();
+    Login();
 
     int pilih;
     while (true)
