@@ -9,6 +9,7 @@ struct Kamar
     string WaktuReservasi;
     string tipeKamar;
     int hargaPerMalam;
+    string namaPemesan;
     Kamar *next;
 };
 
@@ -162,15 +163,18 @@ void KamarTersedia(Kamar *head, bool showMenu = true)
 void ReservasiKamar(Kamar* head) {
     int nomorKamar;
     string WaktuReservasi;
+    string namaPemesan;
 
     cout << "========================Data Kamar========================\n";
     cout << "Kamar\t\tTipe Kamar\t\tHarga Per Malam\n";
     cout << "----------------------------------------------------------\n\n";
 
-    Kamar* current = head;
+    Kamar *current = head;
     bool kamarTersedia = false;
-    while (current != nullptr) {
-        if (!current->reservasi) {
+    while (current != nullptr)
+    {
+        if (!current->reservasi)
+        {
             cout << "Kamar " << current->nomorKamar << "\t\t";
             cout << current->tipeKamar << "\t\t\t";
             cout << current->hargaPerMalam << endl;
@@ -179,7 +183,8 @@ void ReservasiKamar(Kamar* head) {
         current = current->next;
     }
 
-    if (!kamarTersedia) {
+    if (!kamarTersedia)
+    {
         cout << "Tidak ada kamar yang tersedia.\n";
         cout << endl << "Tekan enter untuk kembali ke menu...";
         cin.ignore();
@@ -188,24 +193,32 @@ void ReservasiKamar(Kamar* head) {
     }
 
     bool kamarDitemukan = false;
-    while (!kamarDitemukan) {
+    while (!kamarDitemukan)
+    {
         cout << "\nMasukkan nomor kamar yang ingin dipesan (0 untuk kembali ke menu): ";
         cin >> nomorKamar;
 
-        if (nomorKamar == 0) {
+        if (nomorKamar == 0)
+        {
             cout << endl << "Kembali ke menu..." << endl;
             return;
         }
 
         current = head;
-        while (current != nullptr) {
-            if (current->nomorKamar == nomorKamar && !current->reservasi) {
+        while (current != nullptr)
+        {
+            if (current->nomorKamar == nomorKamar && !current->reservasi)
+            {
                 kamarDitemukan = true;
                 cout << "Masukkan waktu reservasi (hari): ";
                 cin >> WaktuReservasi;
+                cout << "Masukkan nama pemesan: ";
+                cin.ignore();
+                getline(cin, namaPemesan);
                 current->reservasi = true;
                 current->WaktuReservasi = WaktuReservasi;
-                cout << "Kamar nomor " << current->nomorKamar << " berhasil dipesan pada hari " << current->WaktuReservasi << ".\n";
+                current->namaPemesan = namaPemesan;
+                cout << "Kamar nomor " << current->nomorKamar << " berhasil dipesan pada hari " << current->WaktuReservasi << " atas nama " << current->namaPemesan << ".\n";
                 cout << endl << "Tekan enter untuk kembali ke menu...";
                 cin.ignore();
                 cin.get();
@@ -215,14 +228,11 @@ void ReservasiKamar(Kamar* head) {
         }
 
         char pilihan;
-        cout << "Kamar nomor " << nomorKamar << " tidak tersedia atau sudah dipesan." << endl;
-        cout << "Apakah Anda ingin memesan kamar lain? (y/n): ";
+        cout << "Kamar dengan nomor " << nomorKamar << " tidak tersedia atau tidak valid. Apakah Anda ingin mencoba lagi? (y/n): ";
         cin >> pilihan;
-
-        if (pilihan == 'n' || pilihan == 'N') {
-            cout << endl << "Tekan enter untuk kembali ke menu...";
-            cin.ignore();
-            cin.get();
+        if (pilihan == 'n' || pilihan == 'N')
+        {
+            cout << endl << "Kembali ke menu..." << endl;
             return;
         }
     }
@@ -233,17 +243,18 @@ void DataReservasi(Kamar *head)
 {
     bool TelahReservasi = false;
     Kamar *current = head;
-    cout << "================================================================================\n";
-    cout << "                               Data Reservasi Kamar                             \n";
-    cout << "================================================================================\n";
-    cout << "No. |  Nomor Kamar  |     Tipe Kamar      |  Harga Per Malam  |  Waktu Reservasi\n";
-    cout << "--------------------------------------------------------------------------------\n";
+    cout << "===============================================================================================\n";
+    cout << "                                              Data Reservasi Kamar                             \n";
+    cout << "===============================================================================================\n";
+    cout << "No. |   Atas Nama   | Nomor Kamar  |     Tipe Kamar      |  Harga Per Malam  |  Waktu Reservasi\n";
+    cout << "-----------------------------------------------------------------------------------------------\n";
     int nomorUrut = 1;
     while (current != nullptr)
     {
         if (current->reservasi)
         {
             cout << setw(3) << nomorUrut << " |";
+            cout << setw(14) << current->namaPemesan << " |";
             cout << setw(13) << "Kamar " << current->nomorKamar << " |";
             cout << setw(19) << current->tipeKamar << " |";
             cout << setw(17) << current->hargaPerMalam << " |";
@@ -257,7 +268,7 @@ void DataReservasi(Kamar *head)
     {
         cout << "Tidak ada kamar yang dipesan.\n";
     }
-    cout << "=================================================================================\n";
+    cout << "===============================================================================================\n";
     cout << endl
          << "Tekan enter untuk kembali ke menu...";
     cin.ignore();
@@ -290,7 +301,7 @@ void BatalkanReservasi(Kamar *head)
     }
 
     cout << "====================== Daftar Reservasi ======================\n";
-    cout << setw(4) << "No. |" << setw(15) << "Nomor Kamar |" << setw(20) << "Tipe Kamar |" << setw(18) << "Harga Per Malam |" << setw(18) << "Waktu Reservasi\n";
+    cout << setw(4) << "No. |" << setw(14) << "Atas Nama" << setw(15) << "Nomor Kamar |" << setw(20) << "Tipe Kamar |" << setw(18) << "Harga Per Malam |" << setw(18) << "Waktu Reservasi\n";
     cout << "-------------------------------------------------------------\n";
     current = head;
     int nomorUrut = 1;
@@ -300,6 +311,7 @@ void BatalkanReservasi(Kamar *head)
         if (current->reservasi)
         {
             cout << setw(4) << nomorUrut << " |";
+            cout << setw(14) << current->namaPemesan << " |";
             cout << setw(13) << "Kamar " << current->nomorKamar << " |";
             cout << setw(18) << current->tipeKamar << " |";
             cout << setw(16) << current->hargaPerMalam << " |";
