@@ -100,9 +100,53 @@ void KamarTersedia(Kamar *head, bool showMenu = true)
                 cout << "Kamar " << current->nomorKamar << "\t\t";
                 cout << current->tipeKamar << "\t\t\t";
                 cout << current->hargaPerMalam << endl;
-                // cout << "-------------------------------------\n";
             }
             current = current->next;
+        }
+
+        char pilihan;
+        cout << "\nApakah Anda ingin melihat spesifikasi lengkap kamar? (y/n): ";
+        cin >> pilihan;
+
+        if (pilihan == 'y' || pilihan == 'Y')
+        {
+            system("cls");
+            cout << "\n===================Spesifikasi Kamar=====================\n";
+            current = head;
+            while (current != nullptr)
+            {
+                if (!current->reservasi)
+                {
+                    cout << "Kamar " << current->nomorKamar << endl;
+
+                    if (current->tipeKamar == "Single Room")
+                    {
+                        cout << "\t- Tipe kamar: Single Room\n";
+                        cout << "\t- Fasilitas: Kasur single, TV, AC, kamar mandi\n";
+                        cout << "\t- Harga: " << current->hargaPerMalam << endl;
+                    }
+                    else if (current->tipeKamar == "Double Room")
+                    {
+                        cout << "\t- Tipe kamar: Double Room\n";
+                        cout << "\t- Fasilitas: Kasur double, TV, AC, kamar mandi\n";
+                        cout << "\t- Harga: " << current->hargaPerMalam << endl;
+                    }
+                    else if (current->tipeKamar == "Deluxe Room")
+                    {
+                        cout << "\t- Tipe kamar: Deluxe Room\n";
+                        cout << "\t- Fasilitas: Kasur king-size, TV, AC, kamar mandi, minibar\n";
+                        cout << "\t- Harga: " << current->hargaPerMalam << endl;
+                    }
+                    else if (current->tipeKamar == "Suite Room")
+                    {
+                        cout << "\t- Tipe kamar: Suite Room\n";
+                        cout << "\t- Fasilitas: Kasur king-size, ruang tamu, TV, AC, kamar mandi, minibar\n";
+                        cout << "\t- Harga: " << current->hargaPerMalam << endl;
+                    }
+                    cout << "----------------------------------------------------------\n";
+                }
+                current = current->next;
+            }
         }
     }
 
@@ -115,69 +159,75 @@ void KamarTersedia(Kamar *head, bool showMenu = true)
     }
 }
 
-void ReservasiKamar(Kamar *head)
-{
-    KamarTersedia(head, false);
-
+void ReservasiKamar(Kamar* head) {
     int nomorKamar;
     string WaktuReservasi;
 
+    cout << "========================Data Kamar========================\n";
+    cout << "Kamar\t\tTipe Kamar\t\tHarga Per Malam\n";
+    cout << "----------------------------------------------------------\n\n";
+
+    Kamar* current = head;
+    bool kamarTersedia = false;
+    while (current != nullptr) {
+        if (!current->reservasi) {
+            cout << "Kamar " << current->nomorKamar << "\t\t";
+            cout << current->tipeKamar << "\t\t\t";
+            cout << current->hargaPerMalam << endl;
+            kamarTersedia = true;
+        }
+        current = current->next;
+    }
+
+    if (!kamarTersedia) {
+        cout << "Tidak ada kamar yang tersedia.\n";
+        cout << endl << "Tekan enter untuk kembali ke menu...";
+        cin.ignore();
+        cin.get();
+        return;
+    }
+
     bool kamarDitemukan = false;
-    while (!kamarDitemukan)
-    {
+    while (!kamarDitemukan) {
         cout << "\nMasukkan nomor kamar yang ingin dipesan (0 untuk kembali ke menu): ";
         cin >> nomorKamar;
 
-        if (nomorKamar == 0)
-        {
-            cout << endl
-                 << "Kembali ke menu..." << endl;
+        if (nomorKamar == 0) {
+            cout << endl << "Kembali ke menu..." << endl;
             return;
         }
 
-        Kamar *current = head;
-        while (current != nullptr)
-        {
-            if (current->nomorKamar == nomorKamar)
-            {
-                if (!current->reservasi)
-                {
-                    kamarDitemukan = true;
-                    cout << "Masukkan waktu reservasi (hari): ";
-                    cin >> WaktuReservasi;
-                    current->reservasi = true;
-                    current->WaktuReservasi = WaktuReservasi;
-                    cout << "Kamar nomor " << current->nomorKamar << " berhasil dipesan pada hari " << current->WaktuReservasi << ".\n";
-                    cout << endl
-                         << "Tekan enter untuk kembali ke menu...";
-                    cin.ignore();
-                    cin.get();
-                    return;
-                }
-                else
-                {
-                    cout << "Kamar nomor " << current->nomorKamar << " sudah dipesan.\n";
-                    break;
-                }
+        current = head;
+        while (current != nullptr) {
+            if (current->nomorKamar == nomorKamar && !current->reservasi) {
+                kamarDitemukan = true;
+                cout << "Masukkan waktu reservasi (hari): ";
+                cin >> WaktuReservasi;
+                current->reservasi = true;
+                current->WaktuReservasi = WaktuReservasi;
+                cout << "Kamar nomor " << current->nomorKamar << " berhasil dipesan pada hari " << current->WaktuReservasi << ".\n";
+                cout << endl << "Tekan enter untuk kembali ke menu...";
+                cin.ignore();
+                cin.get();
+                return;
             }
             current = current->next;
         }
 
         char pilihan;
-        cout << "Kamar nomor " << nomorKamar << " tidak ditemukan." << endl;
+        cout << "Kamar nomor " << nomorKamar << " tidak tersedia atau sudah dipesan." << endl;
         cout << "Apakah Anda ingin memesan kamar lain? (y/n): ";
         cin >> pilihan;
 
-        if (pilihan == 'n' || pilihan == 'N')
-        {
-            cout << endl
-                 << "Tekan enter untuk kembali ke menu...";
+        if (pilihan == 'n' || pilihan == 'N') {
+            cout << endl << "Tekan enter untuk kembali ke menu...";
             cin.ignore();
             cin.get();
             return;
         }
     }
 }
+
 
 void DataReservasi(Kamar *head)
 {
@@ -324,7 +374,7 @@ int main()
     TambahKamar(DaftarKamar, 3, "Deluxe Room", 200);
     TambahKamar(DaftarKamar, 4, "Suite Room", 250);
 
-    Login();
+    // Login();
 
     int pilih;
     while (true)
