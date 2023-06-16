@@ -300,9 +300,9 @@ void BatalkanReservasi(Kamar *head)
         return;
     }
 
-    cout << "====================== Daftar Reservasi ======================\n";
+    cout << "====================== Daftar Reservasi ===================================================\n";
     cout << setw(4) << "No. |" << setw(14) << "Atas Nama" << setw(15) << "Nomor Kamar |" << setw(20) << "Tipe Kamar |" << setw(18) << "Harga Per Malam |" << setw(18) << "Waktu Reservasi\n";
-    cout << "-------------------------------------------------------------\n";
+    cout << "-------------------------------------------------------------------------------------------\n";
     current = head;
     int nomorUrut = 1;
 
