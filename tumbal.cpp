@@ -244,7 +244,7 @@ void DataReservasi(Kamar *head)
     bool TelahReservasi = false;
     Kamar *current = head;
     cout << "===============================================================================================\n";
-    cout << "                                              Data Reservasi Kamar                             \n";
+    cout << "                                     Data Reservasi Kamar                                      \n";
     cout << "===============================================================================================\n";
     cout << "No. |   Atas Nama   | Nomor Kamar  |     Tipe Kamar      |  Harga Per Malam  |  Waktu Reservasi\n";
     cout << "-----------------------------------------------------------------------------------------------\n";
