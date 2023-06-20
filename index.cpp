@@ -293,7 +293,6 @@ void ReservasiKamar(Kamar *head)
                 system("cls");
                 cout << "Reservasi berhasil dilakukan." << endl;
                 cout << "Silahkan cek data reservasi anda di opsi ketiga pada menu" << endl;
-                // cout << "Alamat pemesan: " << current->alamat << endl;
                 if (bayar > totalHarga)
                 {
                     cout << "Kembalian sebesar: Rp. " << kembalian << endl;
@@ -498,7 +497,7 @@ int main()
     TambahKamar(&DaftarKamar, 3, "Deluxe Room", 0);
     TambahKamar(&DaftarKamar, 4, "Suite Room", 0);
 
-    // Login();
+    Login();
 
     int pilih;
     while (true)
