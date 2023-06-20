@@ -117,13 +117,13 @@ void KamarTersedia(Kamar *head, bool showMenu = true)
         cout << "Kamar\t\tTipe Kamar\t\tHarga Per Malam\n";
         cout << "----------------------------------------------------------\n\n";
         Kamar *current = head;
-        bool adaKamarTersedia = false; 
+        bool adaKamarTersedia = false;
 
         while (current != nullptr)
         {
             if (!current->reservasi)
             {
-                adaKamarTersedia = true; 
+                adaKamarTersedia = true;
                 cout << "Kamar " << current->nomorKamar << "\t\t";
                 cout << current->tipeKamar << "\t\t\t";
                 cout << current->hargaPerMalam << endl;
@@ -131,7 +131,7 @@ void KamarTersedia(Kamar *head, bool showMenu = true)
             current = current->next;
         }
 
-        if (!adaKamarTersedia) 
+        if (!adaKamarTersedia)
         {
             cout << "Semua kamar telah dibooking.\n";
         }
@@ -248,11 +248,11 @@ void ReservasiKamar(Kamar *head)
                 kamarDitemukan = true;
                 cout << "Masukkan waktu reservasi (hari): ";
                 cin >> WaktuReservasi;
-                cout << "Masukkan nomor telepon: ";
-                cin >> nomorHandphone;
                 cout << "Masukkan alamat: ";
                 cin.ignore();
                 getline(cin, alamat);
+                cout << "Masukkan nomor telepon: ";
+                cin >> nomorHandphone;
                 cout << "Masukkan nama pemesan: ";
                 cin.ignore();
                 getline(cin, namaPemesan);
@@ -273,6 +273,7 @@ void ReservasiKamar(Kamar *head)
                 {
                     system("cls");
                     cout << "Maaf, uang Anda tidak mencukupi." << endl;
+                    cout << "Reservasi tidak dapat dilakukan" << endl;
                     cout << endl
                          << "Tekan enter untuk kembali ke menu...";
                     cin.ignore();
@@ -290,9 +291,9 @@ void ReservasiKamar(Kamar *head)
                 current->lamaMenginap = lamaMenginap;
                 current->totalHarga = totalHarga;
                 system("cls");
-                cout << "Kamar nomor " << current->nomorKamar << " berhasil dipesan pada hari " << current->WaktuReservasi << " oleh " << current->namaPemesan << ".\n";
-                cout << "Nomor telepon pemesan: " << current->nomorHandphone << endl;
-                cout << "Alamat pemesan: " << current->alamat << endl;
+                cout << "Reservasi berhasil dilakukan." << endl;
+                cout << "Silahkan cek data reservasi anda di opsi ketiga pada menu" << endl;
+                // cout << "Alamat pemesan: " << current->alamat << endl;
                 if (bayar > totalHarga)
                 {
                     cout << "Kembalian sebesar: Rp. " << kembalian << endl;
@@ -307,7 +308,8 @@ void ReservasiKamar(Kamar *head)
         }
 
         char pilihan;
-        cout << "Kamar dengan nomor " << nomorKamar << " tidak tersedia atau tidak valid. Apakah Anda ingin mencoba lagi? (y/n): ";
+        cout << "Kamar dengan nomor " << nomorKamar << " tidak tersedia atau tidak valid." << endl;
+        cout << "Apakah Anda ingin mencoba lagi? (y/n): ";
         cin >> pilihan;
         if (pilihan == 'n' || pilihan == 'N')
         {
@@ -496,7 +498,7 @@ int main()
     TambahKamar(&DaftarKamar, 3, "Deluxe Room", 0);
     TambahKamar(&DaftarKamar, 4, "Suite Room", 0);
 
-    Login();
+    // Login();
 
     int pilih;
     while (true)

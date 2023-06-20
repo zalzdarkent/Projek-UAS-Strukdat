@@ -56,6 +56,7 @@
   "C_Cpp_Runner.showCompilationTime": false,
   "files.associations": {
     "*.embeddedhtml": "html",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "iostream": "cpp"
   }
 }
