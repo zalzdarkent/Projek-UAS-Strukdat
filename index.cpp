@@ -308,7 +308,7 @@ void ReservasiKamar(Kamar *head)
 
         char pilihan;
         cout << "Kamar dengan nomor " << nomorKamar << " tidak tersedia atau tidak valid." << endl;
-        cout << "Apakah Anda ingin mencoba lagi? (y/n): ";
+        cout << "Ingin memesan kamar lain? (y/n): ";
         cin >> pilihan;
         if (pilihan == 'n' || pilihan == 'N')
         {
